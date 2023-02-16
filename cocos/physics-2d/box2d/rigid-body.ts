@@ -82,16 +82,6 @@ export class b2RigidBody2D implements IRigidBody2D {
         this.setActive(false);
     }
 
-    _registerNodeEvents () {
-        const node = this.rigidBody.node;
-        node.on(NodeEventType.TRANSFORM_CHANGED, this.nodeTransformChanged, this);
-    }
-
-    _unregisterNodeEvents () {
-        const node = this.rigidBody.node;
-        node.off(NodeEventType.TRANSFORM_CHANGED, this.nodeTransformChanged, this);
-    }
-
     nodeTransformChanged (type) {
         if (PhysicsSystem2D.instance.stepping) {
             return;
@@ -116,8 +106,6 @@ export class b2RigidBody2D implements IRigidBody2D {
             return;
         }
 
-        this._registerNodeEvents();
-
         (PhysicsSystem2D.instance.physicsWorld as b2PhysicsWorld).addBody(this);
         this.setActive(false);
 
@@ -128,8 +116,6 @@ export class b2RigidBody2D implements IRigidBody2D {
         if (!this._inited) return;
 
         (PhysicsSystem2D.instance.physicsWorld as b2PhysicsWorld).removeBody(this);
-
-        this._unregisterNodeEvents();
 
         this._inited = false;
     }
