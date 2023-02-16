@@ -110,7 +110,7 @@ function _getSlotMaterial (tex: TextureBase | null, blendMode: BlendMode) {
     return _comp!.getMaterialForBlend(src, dst);
 }
 
-function _handleColor (color: {r:number, g:number, b:number, a:number}, parentOpacity: number) {
+function _handleColor (color: {r: number, g: number, b: number, a: number}, parentOpacity: number) {
     const _a = color.a * parentOpacity * _nodeA;
     const _multiply = _premultipliedAlpha ? _a / 255.0 : 1.0;
     const _r = color.r * _nodeR * _multiply / 255.0;
@@ -482,10 +482,6 @@ function updateComponentRenderData (comp: ArmatureDisplay, batcher: Batcher2D) {
     }
     // Ensure mesh buffer update
     _accessor.getMeshBuffer(_renderData.chunk.bufferId).setDirty();
-
-    // sync attached node matrix
-    // renderer.worldMatDirty++;
-    comp.attachUtil._syncAttachedNode();
 
     // Clear temp var.
     _node = undefined;
